@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no">
+    <title>DDI-DFI-DHI</title>
+    <link rel="icon" href="https://ddi-dfi-dhi.github.io/favicon.ico">
+    <link rel="stylesheet" href="https://ddi-dfi-dhi.github.io/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ddi-dfi-dhi.github.io/css/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://ddi-dfi-dhi.github.io/css/bootstrap-table/bootstrap-table.min.css">
+</head>
+
+<body class="d-flex flex-column h-100">
+<header class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="https://ddi-dfi-dhi.github.io/">&nbsp;<i class="fa fa-heartbeat" aria-hidden="true"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample07">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://ddi-dfi-dhi.github.io/">&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="https://ddi-dfi-dhi.github.io/predict">&nbsp;&nbsp;&nbsp;Predict&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="container flex-shrink-0">
+    <br>
+    <br>
+    <form id="drug-pair">
+        <div class="form-row justify-content-center">
+            <div class="col-md-8 p-3">
+                <label class="sr-only" for="disabledSelect">Drug A</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Drug A</div>
+                    </div>
+                    <input type="text" class="form-control" id="drug-a" placeholder="SMILES of Drug A">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Modal-a">Draw</button>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a valid SMILES
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 p-3">
+                <label class="sr-only" for="disabledSelect">Drug B</label>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Drug B</div>
+                    </div>
+                    <input type="text" class="form-control" id="drug-b" placeholder="SMILES of Drug B">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#Modal-b">Draw</button>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a valid SMILES
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3">
+            <button class="btn btn-primary" type="submit" id="s">Submit</button>
+        </div>
+    </form>
+    <br>
+    <!-- Modal -->
+    <div class="modal fade" id="Modal-a" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Draw or import a drug</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="ifKetcher" src="https://ddi-dfi-dhi.github.io/ketcher/a1/ketcher.html" width="100%" height="600px"></iframe>
+					<input type="hidden" class="form-control" id="input_a" placeholder="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="ok-a">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="Modal-b" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Draw or import a drug</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="ifKetcher" src="https://ddi-dfi-dhi.github.io/ketcher/a2/ketcher.html" width="100%" height="600px"></iframe>
+					<input type="hidden" class="form-control" id="input_b" placeholder="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="ok-b">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Predicted DDI
+        </div>
+        <div class="card-body">
+            <div id="exptoolbar2">
+                <select id="sel_exp2" class="custom-select">
+                    <option selected="selected" value="selected">Export selected data</option>
+                    <option value="basic">Export data in this page</option>
+                    <option value="all">Export all data</option>
+                </select>
+            </div>
+            <div class="table-responsive">
+                <table id="table-results"></table>
+            </div>
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
+</main>
+
+<footer class="footer mt-auto py-2 bg-dark">
+    <div class="container">
+        <h4 class="text-white float-left m-1">DDI-DFI-DHI</h4>
+        <div class="float-right">
+            <small class="d-block text-muted mt-2">&copy; 2020&nbsp;&nbsp;&nbsp;<i class="fa fa-bug" aria-hidden="true"></i>&nbsp;Version 1.1</small>
+        </div>
+    </div>
+</footer>
+
+<script src="https://ddi-dfi-dhi.github.io/js/jquery/jquery.min.js"></script>
+<script src="https://ddi-dfi-dhi.github.io/js/popper/popper.min.js"></script>
+<script src="https://ddi-dfi-dhi.github.io/js/bootstrap/bootstrap.min.js"></script>
+<script src="https://ddi-dfi-dhi.github.io/js/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="https://ddi-dfi-dhi.github.io/js/tableExport/tableExport.min.js"></script>
+<script src="https://ddi-dfi-dhi.github.io/js/bootstrap-table/extensions/export/bootstrap-table-export.min.js"></script>
+
+<script>
+    $('#table-results').bootstrapTable({
+        contentType: 'application/x-www-form-urlencoded',
+        toolbar: '#exptoolbar2',
+        clickToSelect: true,
+        showExport: true,
+        exportDataType: 'selected',
+        cache: true,
+        striped: true,
+        pagination: true,
+        pageList: [10, 20, 50],
+        pageSize: 10,
+        pageNumber: 1,
+        maintainMetaData: true,
+        sidePagination: 'client',
+        queryParams: function (params) {
+            return {
+                pageSize: params.limit,
+                offset: params.offset,
+                sort: params.sort,
+                sortOrder: params.order,
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                search: $('.search-input').val()
+            }
+        },
+        sortName: 'probability',
+        sortOrder: 'desc',
+        columns: [
+            {
+                field: 'state',
+                checkbox: true,
+                align: 'center',
+            }, {
+                field: 'description',
+                title: 'Description',
+                sortable:true,
+            }, {
+                field: 'probability',
+                title: 'Probability',
+                sortable:true,
+            }
+        ],
+        formatNoMatches: function(){
+            return "No result";
+        },
+    });
+    $("#sel_exp2").change(function () {
+        $('#table-results').bootstrapTable('refreshOptions', {
+            exportDataType: $(this).val()
+        });
+    });
+
+    $(function(){
+        $("#ok-a").click(function(){
+            $("#drug-a").val($("#input_a").val());
+        });
+    });
+
+    $(function(){
+        $("#ok-b").click(function(){
+            $("#drug-b").val($("#input_b").val());
+        });
+    });
+
+    var flag_a = 0;
+    var flag_b = 0;
+
+    $(function(){
+        $('#s').click(function (e) {
+            e.preventDefault();
+            var d_a = String($('#drug-a').val());
+            var d_b = String($('#drug-b').val());
+            if (d_a == '' && d_b == '') {
+                $("#drug-a").removeClass('is-valid');
+                $("#drug-a").addClass('is-invalid');
+                $("#drug-b").removeClass('is-valid');
+                $("#drug-b").addClass('is-invalid');
+				$('#table-results').bootstrapTable('removeAll');
+            } else if (d_a == d_b) {
+                alert("Drug A and Drug B cannot be the same!");
+                $('#drug-a').val('');
+                $('#drug-b').val('');
+				$('#table-results').bootstrapTable('removeAll');
+            } else if (d_a == '' || d_b == '') {
+                if (d_a == '') {
+					$("#drug-a").removeClass('is-valid');
+					$("#drug-a").addClass('is-invalid');
+					$('#table-results').bootstrapTable('removeAll');
+				};
+				if (d_b == '') {
+					$("#drug-b").removeClass('is-valid');
+					$("#drug-b").addClass('is-invalid');
+					$('#table-results').bootstrapTable('removeAll');
+				};
+            }else {			
+                var data = {'drug_a' : d_a, 'drug_b' : d_b};
+				$.ajax({
+					type: 'POST',
+					url: 'https://www.pharmpkdb.com:14488/model_3/check',
+					data: JSON.stringify(data),
+					dataType: 'json',
+					contentType: 'application/json',
+					success: function (data) {
+						if (data.d_a == 'true') {
+							flag_a = 1;
+							$("#drug-a").removeClass('is-invalid');
+							$("#drug-a").addClass('is-valid');
+						}
+						else {
+							flag_a = 0;
+							$("#drug-a").removeClass('is-valid');
+							$("#drug-a").addClass('is-invalid');
+							$('#table-results').bootstrapTable('removeAll');
+						};
+						if (data.d_b == 'true') {
+							flag_b = 1;
+							$("#drug-b").removeClass('is-invalid');
+							$("#drug-b").addClass('is-valid');
+						}
+						else {
+							flag_b = 0;
+							$("#drug-b").removeClass('is-valid');
+							$("#drug-b").addClass('is-invalid');
+							$('#table-results').bootstrapTable('removeAll');
+						};
+						if (flag_a == 1 && flag_b == 1) {
+							$('#table-results').bootstrapTable('refreshOptions', {
+								url: 'https://pharmpkdb.com:14488/model_3/predict',
+								method: 'post',
+								queryParams: function (params) {
+									return {
+										drug_a: d_a,
+										drug_b: d_b
+									}
+								},
+							});
+						};
+					}
+				});
+            };
+        });
+    });
+
+</script>
+</body>
+</html>
