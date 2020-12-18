@@ -160,8 +160,12 @@
                 checkbox: true,
                 align: 'center',
             }, {
-                field: 'cyp',
-                title: 'CYP450',
+                field: 'id',
+                title: 'Drugbank Id',
+                sortable:true,
+            }, {
+                field: 'name',
+                title: 'Name',
                 sortable:true,
             }, {
                 field: 'interaction',
@@ -199,7 +203,7 @@
                 var data = {'drug_a' : d_a};
 				$.ajax({
 					type: 'POST',
-					url: 'https://www.pharmpkdb.com:14488/model_3/check',
+					url: 'https://www.pharmpkdb.com:14488/model_4/check',
 					data: JSON.stringify(data),
 					dataType: 'json',
 					contentType: 'application/json',
