@@ -154,12 +154,12 @@
                 checkbox: true,
                 align: 'center',
             }, {
-                field: 'description',
-                title: 'Description',
+                field: 'cyp',
+                title: 'CYP450',
                 sortable:true,
             }, {
-                field: 'probability',
-                title: 'Probability',
+                field: 'interaction',
+                title: 'Interaction',
                 sortable:true,
             }
         ],
@@ -179,44 +179,18 @@
         });
     });
 
-    $(function(){
-        $("#ok-b").click(function(){
-            $("#drug-b").val($("#input_b").val());
-        });
-    });
-
     var flag_a = 0;
-    var flag_b = 0;
 
     $(function(){
         $('#s').click(function (e) {
             e.preventDefault();
             var d_a = String($('#drug-a').val());
-            var d_b = String($('#drug-b').val());
-            if (d_a == '' && d_b == '') {
+            if (d_a == '') {
                 $("#drug-a").removeClass('is-valid');
                 $("#drug-a").addClass('is-invalid');
-                $("#drug-b").removeClass('is-valid');
-                $("#drug-b").addClass('is-invalid');
 				$('#table-results').bootstrapTable('removeAll');
-            } else if (d_a == d_b) {
-                alert("Drug A and Drug B cannot be the same!");
-                $('#drug-a').val('');
-                $('#drug-b').val('');
-				$('#table-results').bootstrapTable('removeAll');
-            } else if (d_a == '' || d_b == '') {
-                if (d_a == '') {
-					$("#drug-a").removeClass('is-valid');
-					$("#drug-a").addClass('is-invalid');
-					$('#table-results').bootstrapTable('removeAll');
-				};
-				if (d_b == '') {
-					$("#drug-b").removeClass('is-valid');
-					$("#drug-b").addClass('is-invalid');
-					$('#table-results').bootstrapTable('removeAll');
-				};
-            }else {			
-                var data = {'drug_a' : d_a, 'drug_b' : d_b};
+            } else {			
+                var data = {'drug_a' : d_a};
 				$.ajax({
 					type: 'POST',
 					url: 'https://www.pharmpkdb.com:14488/model_3/check',
@@ -235,25 +209,13 @@
 							$("#drug-a").addClass('is-invalid');
 							$('#table-results').bootstrapTable('removeAll');
 						};
-						if (data.d_b == 'true') {
-							flag_b = 1;
-							$("#drug-b").removeClass('is-invalid');
-							$("#drug-b").addClass('is-valid');
-						}
-						else {
-							flag_b = 0;
-							$("#drug-b").removeClass('is-valid');
-							$("#drug-b").addClass('is-invalid');
-							$('#table-results').bootstrapTable('removeAll');
-						};
-						if (flag_a == 1 && flag_b == 1) {
+						if (flag_a == 1) {
 							$('#table-results').bootstrapTable('refreshOptions', {
-								url: 'https://pharmpkdb.com:14488/model_3/predict',
+								url: 'https://pharmpkdb.com:14488/model_4/predict',
 								method: 'post',
 								queryParams: function (params) {
 									return {
-										drug_a: d_a,
-										drug_b: d_b
+										drug_a: d_a
 									}
 								},
 							});
